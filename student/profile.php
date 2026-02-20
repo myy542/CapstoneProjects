@@ -74,12 +74,15 @@ $birth   = trim($user["birth_date"] ?? "");
             <a href="projects.php" class="nav-link">
                 <i class="fas fa-folder-open"></i> My Projects
             </a>
+            <a href="submission.php" class="nav-link">
+                <i class="fas fa-upload"></i> Submit Thesis
+            </a>
             <a href="archived.php" class="nav-link">
                 <i class="fas fa-archive"></i> Archived Theses
             </a>
             <a href="notifications.php" class="nav-link">
                 <i class="fas fa-bell"></i> Notifications
-                <span class="badge">4</span>
+                <span class=""></span>
             </a>
         </nav>
 
@@ -100,7 +103,6 @@ $birth   = trim($user["birth_date"] ?? "");
 
     <main class="main-content">
 
-        <!-- ✅ MOBILE MENU BUTTON (moved here, optional) -->
         <button class="mobile-menu-btn"
                 onclick="document.querySelector('.sidebar').classList.toggle('active')">
             <i class="fas fa-bars"></i>
@@ -110,7 +112,6 @@ $birth   = trim($user["birth_date"] ?? "");
 
             <div class="profile-card main">
 
-                <!-- ✅ TITLE NOW INSIDE THE CARD (ABOVE IMAGE) -->
                 <div class="card-title">
                     <h1>My Profile</h1>
                 </div>
@@ -126,7 +127,6 @@ $birth   = trim($user["birth_date"] ?? "");
 
                     <div class="profile-info">
                         <h1><?= htmlspecialchars($full ?: "User") ?></h1>
-                        <p class="student-id">User ID: <?= $user_id ?></p>
                     </div>
                 </div>
 

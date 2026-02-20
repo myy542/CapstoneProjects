@@ -1,3 +1,69 @@
+<?php
+session_start();
+require_once __DIR__ . "/../admin/config.php";
+
+if (!isset($_SESSION["user_id"])) {
+  header("Location: ../authentication/login.php");
+  exit;
+}
+
+$user_id = (int)$_SESSION["user_id"];
+
+// ===== USER INFO (latest from DB) =====
+$stmt = $conn->prepare("SELECT first_name, last_name, username FROM user_table WHERE user_id=? LIMIT 1");
+$stmt->bind_param("i", $user_id);
+$stmt->execute();
+$u = $stmt->get_result()->fetch_assoc();
+$stmt->close();
+
+$fullName = trim(($u["first_name"] ?? "") . " " . ($u["last_name"] ?? ""));
+if ($fullName === "") $fullName = $u["username"] ?? "User";
+
+$fi = strtoupper(substr(($u["first_name"] ?? $fullName), 0, 1));
+$li = strtoupper(substr(($u["last_name"] ?? $fullName), 0, 1));
+$initials = trim($fi . $li);
+
+// ===== VALIDATION: MARK AS READ (same file) =====
+if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["mark_read"])) {
+  $notif_id = (int)$_POST["mark_read"];
+
+  if ($notif_id > 0) {
+    $stmt = $conn->prepare("
+      UPDATE notification_table
+      SET status='read'
+      WHERE notification_id=? AND user_id=?
+    ");
+    $stmt->bind_param("ii", $notif_id, $user_id);
+    $stmt->execute();
+    $stmt->close();
+  }
+
+  header("Location: notifications.php");
+  exit;
+}
+
+$notifications = [];
+$stmt = $conn->prepare("
+  SELECT notification_id, message, status, created_at
+  FROM notification_table
+  WHERE user_id=?
+  ORDER BY created_at DESC
+");
+$stmt->bind_param("i", $user_id);
+$stmt->execute();
+$res = $stmt->get_result();
+while ($row = $res->fetch_assoc()) {
+  $notifications[] = $row;
+}
+$stmt->close();
+
+$unreadCount = 0;
+$stmt = $conn->prepare("SELECT COUNT(*) AS c FROM notification_table WHERE user_id=? AND status='unread'");
+$stmt->bind_param("i", $user_id);
+$stmt->execute();
+$unreadCount = (int)($stmt->get_result()->fetch_assoc()["c"] ?? 0);
+$stmt->close();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -22,18 +88,28 @@
         <a href="student_dashboard.php" class="nav-link">
           <i class="fas fa-home"></i> Dashboard
         </a>
+
         <a href="profile.php" class="nav-link">
           <i class="fas fa-user"></i> Profile
         </a>
+
         <a href="projects.php" class="nav-link">
           <i class="fas fa-folder-open"></i> My Projects
         </a>
+
+        <a href="submission.php" class="nav-link">
+          <i class="fas fa-upload"></i> Submit Thesis
+        </a>
+
         <a href="archived.php" class="nav-link">
           <i class="fas fa-archive"></i> Archived Theses
         </a>
+
         <a href="notifications.php" class="nav-link active">
           <i class="fas fa-bell"></i> Notifications
-          <span class="badge" id="notification-badge">4</span>
+          <?php if ($unreadCount > 0): ?>
+            <span class="badge"><?= (int)$unreadCount ?></span>
+          <?php endif; ?>
         </a>
       </nav>
 
@@ -46,7 +122,8 @@
             <span class="slider"></span>
           </label>
         </div>
-        <a href="#" class="logout-btn">
+
+        <a href="../authentication/logout.php" class="logout-btn">
           <i class="fas fa-sign-out-alt"></i> Logout
         </a>
       </div>
@@ -55,52 +132,50 @@
     <main class="main-content">
       <header class="topbar">
         <h1>Notifications</h1>
+
         <div class="user-info">
-          <span class="user-name">Mark Kiven Gie</span>
-          <div class="avatar">MK</div>
+          <span class="user-name"><?= htmlspecialchars($fullName) ?></span>
+          <div class="avatar"><?= htmlspecialchars($initials) ?></div>
         </div>
       </header>
 
       <div class="notifications-container">
 
-        <div class="notification-item unread">
-          <div class="notif-icon"><i class="fas fa-file-signature"></i></div>
-          <div class="notif-content">
-            <p><strong>Dr. Anna Reyes</strong> uploaded revision comments on Chapter 4 & 5</p>
-            <span class="notif-time">Today • 7:42 AM</span>
+        <?php if (count($notifications) === 0): ?>
+          <div class="notification-empty" style="padding:24px;border:1px dashed rgba(148,163,184,.6);border-radius:14px;">
+            <strong> </strong>
+            <div style="margin-top:6px;color:#64748b;">
+            </div>
           </div>
-        </div>
+        <?php else: ?>
 
-        <div class="notification-item unread">
-          <div class="notif-icon"><i class="fas fa-calendar-check"></i></div>
-          <div class="notif-content">
-            <p>Final defense schedule confirmed: <strong>March 15, 2026 – 10:00 AM</strong></p>
-            <span class="notif-time">February 08, 2026</span>
-          </div>
-        </div>
+          <?php foreach ($notifications as $n): ?>
+            <?php $isUnread = (strtolower(trim($n["status"])) === "unread"); ?>
 
-        <div class="notification-item unread">
-          <div class="notif-icon"><i class="fas fa-exclamation-triangle"></i></div>
-          <div class="notif-content">
-            <p>Reminder: Submit final manuscript before <strong>February 20, 2026</strong></p>
-            <span class="notif-time">February 05, 2026</span>
-          </div>
-        </div>
+            <form method="POST" style="margin:0;">
+              <input type="hidden" name="mark_read" value="<?= (int)$n["notification_id"] ?>">
 
-        <div class="notification-item unread">
-          <div class="notif-icon"><i class="fas fa-check-circle"></i></div>
-          <div class="notif-content">
-            <p>Proposal defense (October 2025) marked as <strong>Passed</strong></p>
-            <span class="notif-time">November 12, 2025</span>
-          </div>
-        </div>
+              <button type="submit"
+                      class="notification-item <?= $isUnread ? 'unread' : '' ?>"
+                      style="width:100%;text-align:left;border:0;background:transparent;padding:0;cursor:pointer;">
+                <div class="notif-icon"><i class="fas fa-bell"></i></div>
+                <div class="notif-content">
+                  <p><?= htmlspecialchars($n["message"]) ?></p>
+                  <span class="notif-time"><?= htmlspecialchars($n["created_at"]) ?></span>
+                </div>
+              </button>
+            </form>
+
+          <?php endforeach; ?>
+
+        <?php endif; ?>
 
       </div>
     </main>
   </div>
 
   <script>
-    // Dark mode toggle (unchanged)
+    // dark mode toggle
     const toggle = document.getElementById('darkmode');
     if (toggle) {
       toggle.addEventListener('change', () => {
@@ -112,46 +187,6 @@
         document.body.classList.add('dark-mode');
       }
     }
-
-    // =============================================
-    // Mark notification as read + update badge count
-    // =============================================
-    document.addEventListener('DOMContentLoaded', () => {
-      const badgeElement = document.getElementById('notification-badge');
-      let unreadCount = badgeElement ? parseInt(badgeElement.textContent.trim(), 10) : 0;
-
-      document.querySelectorAll('.notification-item').forEach(notification => {
-        notification.addEventListener('click', function(e) {
-          // Skip if clicked on something interactive inside (future-proof)
-          if (e.target.closest('a, button, input, select')) {
-            return;
-          }
-
-          // Only act if this notification is still unread
-          if (this.classList.contains('unread')) {
-            // Remove unread styling
-            this.classList.remove('unread');
-
-            // Decrease counter
-            if (unreadCount > 0) {
-              unreadCount--;
-              if (unreadCount > 0) {
-                badgeElement.textContent = unreadCount;
-              } else {
-                // Remove badge completely when no unread left
-                badgeElement.remove();
-              }
-            }
-
-            // Optional: small visual feedback
-            this.style.backgroundColor = 'rgba(100, 116, 139, 0.08)';
-            setTimeout(() => {
-              this.style.backgroundColor = '';
-            }, 400);
-          }
-        });
-      });
-    });
   </script>
 </body>
 </html>

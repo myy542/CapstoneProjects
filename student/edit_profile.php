@@ -145,99 +145,78 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     </aside>
 
     <main class="main-content">
+<div class="profile-container">
 
-        <header class="topbar">
-            <h1>Edit Profile</h1>
-            <button class="mobile-menu-btn" onclick="document.querySelector('.sidebar').classList.toggle('active')">
-                <i class="fas fa-bars"></i>
-            </button>
-        </header>
+    <div class="profile-card main">
 
-        <div class="profile-container">
+        <h2 class="profile-title">Edit Profile</h2>
 
-            <div class="profile-card main">
+        <?php if ($error): ?>
+            <div class="alert" style="padding:1rem; background:#fee2e2; color:#991b1b; border-radius:10px; margin-bottom:1.5rem;">
+                <?= htmlspecialchars($error) ?>
+            </div>
+        <?php endif; ?>
 
-                <?php if ($error): ?>
-                    <div class="alert" style="padding:1rem; background:#fee2e2; color:#991b1b; border-radius:10px; margin-bottom:1.5rem;">
-                        <?= htmlspecialchars($error) ?>
+        <form method="POST" enctype="multipart/form-data" class="edit-form">
+
+            <div class="form-group picture-group">
+                <label>Profile Picture</label>
+
+                <?php if ($profilePicUrl && file_exists(__DIR__ . "/../uploads/profile_pictures/" . $user["profile_picture"])): ?>
+                    <div class="current-picture">
+                        <img src="<?= htmlspecialchars($profilePicUrl) ?>?v=<?= time() ?>" alt="Current profile picture">
+                    </div>
+                <?php else: ?>
+                    <div class="current-picture placeholder">
+                        No picture set
                     </div>
                 <?php endif; ?>
 
-                <form method="POST" enctype="multipart/form-data" class="edit-form">
-
-                    <div class="form-group picture-group">
-                        <label>Profile Picture</label>
-
-                        <?php if ($profilePicUrl && file_exists(__DIR__ . "/../uploads/profile_pictures/" . $user["profile_picture"])): ?>
-                            <div class="current-picture">
-                                <img src="<?= htmlspecialchars($profilePicUrl) ?>?v=<?= time() ?>" alt="Current profile picture">
-                            </div>
-                        <?php else: ?>
-                            <div class="current-picture placeholder">
-                                No picture set
-                            </div>
-                        <?php endif; ?>
-
-                        <div class="file-upload-wrapper">
-                            <input type="file" name="profile_picture" accept="image/jpeg,image/png" id="profile_picture">
-                            <label for="profile_picture" class="file-upload-btn">Choose File</label>
-                            <span class="file-name">No file chosen</span>
-                        </div>
-
-                        <small>PNG, JPG, JPEG only (max 2MB recommended)</small>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="first_name">First Name</label>
-                        <input type="text" id="first_name" name="first_name" value="<?= htmlspecialchars($first) ?>" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="last_name">Last Name</label>
-                        <input type="text" id="last_name" name="last_name" value="<?= htmlspecialchars($last) ?>" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="email">Email</label>
-                        <input type="email" id="email" name="email" value="<?= htmlspecialchars($user["email"]) ?>" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="contact_number">Contact Number</label>
-                        <input type="tel" id="contact_number" name="contact_number" value="<?= htmlspecialchars($user["contact_number"] ?? '') ?>">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="birth_date">Birth Date</label>
-                        <input type="date" id="birth_date" name="birth_date" value="<?= htmlspecialchars($user["birth_date"] ?? '') ?>">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="address">Address</label>
-                        <textarea id="address" name="address" rows="4"><?= htmlspecialchars($user["address"] ?? '') ?></textarea>
-                    </div>
-
-                    <div class="form-actions">
-                        <a href="profile.php" class="btn secondary">Cancel</a>
-                        <button type="submit" class="btn primary">Save Changes</button>
-                    </div>
-
-                </form>
-
+                <div class="file-upload-wrapper">
+                    <input type="file" name="profile_picture" accept="image/jpeg,image/png" id="profile_picture">
+                    <label for="profile_picture" class="file-upload-btn">Choose File</label>
+                    <span class="file-name">No file chosen</span>
+                </div>
             </div>
 
-            <div class="profile-card stats">
-                <h3>Profile Tips</h3>
-                <ul class="tips-list">
-                    <li>Use a clear, recent photo</li>
-                    <li>Keep email active for notifications</li>
-                    <li>Contact number helps quick communication</li>
-                    <li>Birth date is optional but useful for records</li>
-                </ul>
+            <div class="form-group">
+                <label for="first_name">First Name</label>
+                <input type="text" id="first_name" name="first_name" value="<?= htmlspecialchars($first) ?>" required>
             </div>
 
-        </div>
+            <div class="form-group">
+                <label for="last_name">Last Name</label>
+                <input type="text" id="last_name" name="last_name" value="<?= htmlspecialchars($last) ?>" required>
+            </div>
 
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" value="<?= htmlspecialchars($user["email"]) ?>" required>
+            </div>
+
+            <div class="form-group">
+                <label for="contact_number">Contact Number</label>
+                <input type="tel" id="contact_number" name="contact_number" value="<?= htmlspecialchars($user["contact_number"] ?? '') ?>">
+            </div>
+
+            <div class="form-group">
+                <label for="birth_date">Birth Date</label>
+                <input type="date" id="birth_date" name="birth_date" value="<?= htmlspecialchars($user["birth_date"] ?? '') ?>">
+            </div>
+
+            <div class="form-group">
+                <label for="address">Address</label>
+                <textarea id="address" name="address" rows="4"><?= htmlspecialchars($user["address"] ?? '') ?></textarea>
+            </div>
+
+            <div class="form-actions">
+                <a href="profile.php" class="btn secondary">Cancel</a>
+                <button type="submit" class="btn primary">Save Changes</button>
+            </div>
+        </form>
+    </div>
+
+</div>
     </main>
 
 </div>

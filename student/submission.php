@@ -147,26 +147,25 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             <label for="title">Thesis Title <span class="required">*</span></label>
             <input type="text" id="title" name="title" required
                    value="<?= htmlspecialchars($_POST['title'] ?? '') ?>"
-                   placeholder="e.g. Mobile-Based Student Attendance Monitoring with Face Recognition">
+                   placeholder="">
           </div>
 
           <div class="form-group">
             <label for="abstract">Abstract <span class="required">*</span></label>
             <textarea id="abstract" name="abstract" required
-                      placeholder="Provide a brief summary of your research (200–400 words recommended)"><?= htmlspecialchars($_POST['abstract'] ?? '') ?></textarea>
+                      placeholder=""><?= htmlspecialchars($_POST['abstract'] ?? '') ?></textarea>
           </div>
 
           <div class="form-group">
             <label for="adviser">Thesis Adviser <span class="required">*</span></label>
             <input type="text" id="adviser" name="adviser" required
                    value="<?= htmlspecialchars($_POST['adviser'] ?? '') ?>"
-                   placeholder="e.g. Dr. Anna Reyes">
+                   placeholder="">
           </div>
 
           <div class="form-group">
             <label for="manuscript">Upload Manuscript (PDF only) <span class="required">*</span></label>
             <input type="file" id="manuscript" name="manuscript" accept=".pdf" required>
-            <small class="help-text">Max file size: 20 MB recommended</small>
           </div>
 
           <div style="margin-top: 2.2rem; display: flex; gap: 1rem; flex-wrap: wrap;">
