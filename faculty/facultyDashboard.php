@@ -28,6 +28,9 @@ $pageTitle = "Faculty Dashboard";
       <a href="facultyDashboard.php" class="nav-link active">
         <i class="fas fa-home"></i> Dashboard
       </a>
+      <a href="facultyProfile.php" class="nav-link">
+        <i class="fas fa-user"></i> Profile
+      </a>
       <a href="reviewThesis.php" class="nav-link">
         <i class="fas fa-book-reader"></i> Review Theses
       </a>
