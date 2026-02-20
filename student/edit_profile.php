@@ -125,7 +125,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             </a>
             <a href="notifications.php" class="nav-link">
                 <i class="fas fa-bell"></i> Notifications
-                <span class="badge">4</span>
+                <span class=""></span>
             </a>
         </nav>
 
@@ -145,6 +145,14 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     </aside>
 
     <main class="main-content">
+
+        <header class="topbar">
+          <div class="profile-container"></div>
+            <button class="mobile-menu-btn" onclick="document.querySelector('.sidebar').classList.toggle('active')">
+                <i class="fas fa-bars"></i>
+            </button>
+        </header>
+
 <div class="profile-container">
 
     <div class="profile-card main">

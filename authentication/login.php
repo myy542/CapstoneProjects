@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once __DIR__ . "/../admin/config.php"; // ✅ use your config
+require_once __DIR__ . "/../admin/config.php"; 
 
 $message = "";
 $message_type = "";
@@ -45,18 +45,16 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
                     $message = "✓ Login successful! Redirecting...";
                     $message_type = "success";
-
-                    // ✅ FIXED role redirects (based on your register roles)
-                    $redirect = "/CapstoneProjects/student/student_dashboard.php"; // default student
+                    $redirect = "/CapstoneProjects/student/student_dashboard.php"; 
 
                     if ((int)$row['role_id'] === 1) {
                         $redirect = "/CapstoneProjects/admin/admindashboard.php";
                     } elseif ((int)$row['role_id'] === 2) {
-                        $redirect = "/CapstoneProjects/student/student_dashboard.php"; // ✅ Student
+                        $redirect = "/CapstoneProjects/student/student_dashboard.php"; 
                     } elseif ((int)$row['role_id'] === 3) {
-                        $redirect = "/CapstoneProjects/faculty/facultyDashboard.php"; // ✅ Faculty
+                        $redirect = "/CapstoneProjects/faculty/facultyDashboard.php"; 
                     } elseif ((int)$row['role_id'] === 4) {
-                        $redirect = "/CapstoneProjects/dean/deanDashboard.php"; // ✅ Dean
+                        $redirect = "/CapstoneProjects/dean/deanDashboard.php";
                     }
 
                     header("Location: $redirect");
