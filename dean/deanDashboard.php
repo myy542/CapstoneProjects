@@ -24,13 +24,15 @@ $pageTitle = "Dean Dashboard";
       <a href="deanDashboard.php" class="nav-link active">
         <i class="fas fa-home"></i> Dashboard
       </a>
+      <a href="deanProfile.php" class="nav-link">
+        <i class="fas fa-user"></i> Profile
+      </a>
       <a href="finalApproved.php" class="nav-link">
         <i class="fas fa-check-double"></i> Final Approval
       </a>
       <a href="#" class="nav-link">
         <i class="fas fa-chart-bar"></i> Reports
-      </a>
-      <div class="sidebar-divider">Settings</div>
+  
       <div class="dark-mode-toggle">
         <span>Dark Mode</span>
         <input type="checkbox" id="darkmode" hidden />

@@ -1,0 +1,144 @@
+.edit-mode {
+  text-align: left;
+}
+
+.form-title {
+  text-align: center;
+  margin-bottom: 2.2rem;
+  font-size: 1.9rem;
+  font-weight: 600;
+}
+
+.avatar-upload-section {
+  text-align: center;
+  margin-bottom: 2.8rem;
+}
+
+.current-avatar {
+  width: 140px;
+  height: 140px;
+  margin: 0 auto 1.2rem;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 3px solid #e5e7eb;
+}
+
+.dark-mode .current-avatar {
+  border-color: #4b5563;
+}
+
+.avatar-placeholder {
+  background: var(--primary);
+  color: white;
+  font-size: 3.8rem;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.choose-file-btn {
+  margin: 0.9rem 0 0.6rem;
+  padding: 0.7rem 1.4rem;
+}
+
+.photo-info {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  margin-top: 0.4rem;
+}
+
+.form-fields .field-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-fields label {
+  display: block;
+  margin-bottom: 0.55rem;
+  font-weight: 500;
+  font-size: 0.98rem;
+}
+
+.form-fields input {
+  width: 100%;
+  padding: 0.82rem 1rem;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.15s;
+}
+
+.form-fields input:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+}
+
+.dark-mode .form-fields input {
+  background: #374151;
+  border-color: #4b5563;
+  color: #f3f4f6;
+}
+
+.form-buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+  margin-top: 2.8rem;
+}
+
+.save-btn {
+  min-width: 140px;
+}
+
+.cancel-btn {
+  background: #6b7280;
+  color: white;
+  min-width: 140px;
+}
+
+.cancel-btn:hover {
+  background: #4b5563;
+}
+
+
+@media (max-width: 768px) {
+  .profile-card {
+    padding: 2rem 1.5rem;
+  }
+
+  .form-title {
+    font-size: 1.7rem;
+  }
+
+  .form-buttons {
+    flex-direction: column;
+    gap: 0.9rem;
+  }
+
+  .save-btn,
+  .cancel-btn {
+    width: 100%;
+  }
+
+  .current-avatar,
+  .avatar-placeholder {
+    width: 120px;
+    height: 120px;
+    font-size: 3.2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .avatar-upload-section {
+    margin-bottom: 2.2rem;
+  }
+
+  .form-fields .field-group {
+    margin-bottom: 1.3rem;
+  }
+
+  .form-buttons {
+    margin-top: 2.2rem;
+  }
+}

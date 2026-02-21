@@ -95,10 +95,23 @@ body.dark-mode .info-item span {
   border: none;
 }
 
-.btn.primary { background: var(--primary); color: white; }
-.btn.primary:hover { background: var(--primary-hover); }
+.btn.primary { 
+  background: var(--primary);
+   color: white;
+   }
+.btn.primary:hover {
+   background: var(--primary-hover);
+   }
 
-.btn.secondary { background: #fee2e2; color: #b91c1c; }
-.btn.secondary:hover { background: #fecaca; }
+.btn.secondary { background: #fee2e2; 
+  color: #b91c1c; 
+}
+.btn.secondary:hover { 
+background: #fecaca; 
+}
 
-.btn.outline { background: transparent; border: 1px solid #cbd5e1; color: #64748b; }
+.btn.outline { 
+  background: transparent;
+   border: 1px solid #cbd5e1; 
+   color: #64748b; 
+  }
