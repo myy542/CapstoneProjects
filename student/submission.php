@@ -93,7 +93,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
       <a href="archived.php" class="nav-link">
         <i class="fas fa-archive"></i> Archived Theses
       </a>
-      <a href="notifications.php" class="nav-link">
+      <a href="notification.php" class="nav-link">
         <i class="fas fa-bell"></i> Notifications
       </a>
     </nav>

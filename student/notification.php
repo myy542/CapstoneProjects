@@ -25,15 +25,15 @@ $initials = trim($fi . $li);
 
 // ===== VALIDATION: MARK AS READ (same file) =====
 if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["mark_read"])) {
-  $notif_id = (int)$_POST["mark_read"];
+  $notification_id = (int)$_POST["mark_read"];
 
-  if ($notif_id > 0) {
+  if ($notification_id > 0) {
     $stmt = $conn->prepare("
       UPDATE notification_table
       SET status='read'
       WHERE notification_id=? AND user_id=?
     ");
-    $stmt->bind_param("ii", $notif_id, $user_id);
+    $stmt->bind_param("ii", $notification_id, $user_id);
     $stmt->execute();
     $stmt->close();
   }
@@ -42,7 +42,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["mark_read"])) {
   exit;
 }
 
-$notifications = [];
+$notification = [];
 $stmt = $conn->prepare("
   SELECT notification_id, message, status, created_at
   FROM notification_table
@@ -53,7 +53,7 @@ $stmt->bind_param("i", $user_id);
 $stmt->execute();
 $res = $stmt->get_result();
 while ($row = $res->fetch_assoc()) {
-  $notifications[] = $row;
+  $notification[] = $row;
 }
 $stmt->close();
 
@@ -105,7 +105,7 @@ $stmt->close();
           <i class="fas fa-archive"></i> Archived Theses
         </a>
 
-        <a href="notifications.php" class="nav-link active">
+        <a href="notification.php" class="nav-link active">
           <i class="fas fa-bell"></i> Notifications
           <?php if ($unreadCount > 0): ?>
             <span class="badge"><?= (int)$unreadCount ?></span>
@@ -141,15 +141,15 @@ $stmt->close();
 
       <div class="notifications-container">
 
-        <?php if (count($notifications) === 0): ?>
+        <?php if (count($notification) === 0): ?>
           <div class="notification-empty" style="padding:24px;border:1px dashed rgba(148,163,184,.6);border-radius:14px;">
-            <strong> </strong>
+            <strong>No notifications available.</strong>
             <div style="margin-top:6px;color:#64748b;">
             </div>
           </div>
         <?php else: ?>
 
-          <?php foreach ($notifications as $n): ?>
+          <?php foreach ($notification as $n): ?>
             <?php $isUnread = (strtolower(trim($n["status"])) === "unread"); ?>
 
             <form method="POST" style="margin:0;">

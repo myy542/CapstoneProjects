@@ -57,7 +57,6 @@ $pageTitle = "My Feedback";
     </div>
   </aside>
 
-  <!-- Main content -->
   <main class="main-content">
     <header class="topbar">
       <h1><?= htmlspecialchars($pageTitle) ?></h1>

@@ -69,7 +69,7 @@ if ($first && $last) {
       <a href="archived.php" class="nav-link">
         <i class="fas fa-archive"></i> Archived Theses
       </a>
-      <a href="notifications.php" class="nav-link">
+      <a href="notification.php" class="nav-link">
         <i class="fas fa-bell"></i> Notifications
       </a>
     </nav>
@@ -140,7 +140,7 @@ if ($first && $last) {
       <div class="links-grid">
         <a href="projects.php" class="quick-btn">View My Projects</a>
         <a href="profile.php" class="quick-btn">Update Profile</a>
-        <a href="notifications.php" class="quick-btn">Check Notifications</a>
+        <a href="notification.php" class="quick-btn">Check Notifications</a>
         <a href="archived.php" class="quick-btn">View Archived Works</a>
       </div>
     </div>
