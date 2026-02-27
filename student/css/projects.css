@@ -1,26 +1,34 @@
-.projects-container {
+/* projects.css - clean white cards + red-white-blue screenshot style */
+
+.projects-section {
+  margin-top: 1.5rem;
+  margin-bottom: 3rem;
+}
+
+.subtitle {
+  color: #6c757d;
+  margin: 0 0 1.6rem;
+  font-size: 1.05rem;
+}
+
+.projects-grid {
   display: flex;
   flex-direction: column;
-  gap: 1.8rem;
-  margin-top: 1.5rem;
+  gap: 1.6rem;
 }
 
 .project-card {
-  background: white;
-  border-radius: 12px;
-  padding: 1.8rem 2rem;
-  box-shadow: 0 3px 14px rgba(0,0,0,0.07);
-  transition: transform 0.18s ease, box-shadow 0.18s ease;
-}
-
-body.dark-mode .project-card {
-  background: #1e293b;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.35);
+  background: #ffffff;
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+  padding: 2rem;
+  box-shadow: 0 3px 12px rgba(0,0,0,0.07);
+  transition: all 0.3s ease;
 }
 
 .project-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 10px 24px rgba(0,0,0,0.12);
+  transform: translateY(-6px);
+  box-shadow: 0 12px 28px rgba(0,0,0,0.14);
 }
 
 .project-header {
@@ -34,22 +42,27 @@ body.dark-mode .project-card {
 
 .project-header h2 {
   margin: 0;
-  font-size: 1.28rem;
-  line-height: 1.35;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #0d47a1;
 }
 
 .status {
-  padding: 0.38rem 1rem;
-  border-radius: 999px;
+  padding: 0.4rem 1rem;
+  border-radius: 50px;
   font-size: 0.88rem;
-  font-weight: 550;
+  font-weight: 600;
 }
 
-.status-active    { background: #dcfce7; color: #166534; }
-.status-pending   { background: #fef3c7; color: #92400e; }
+.status-active {
+  background: #dcfce7;
+  color: #166534;
+}
 
-body.dark-mode .status-active  { background: #064e3b; color: #86efac; }
-body.dark-mode .status-pending { background: #78350f; color: #fcd34d; }
+.status-pending {
+  background: #fef3c7;
+  color: #92400e;
+}
 
 .project-progress {
   margin: 1.2rem 0 1.6rem;
@@ -58,35 +71,27 @@ body.dark-mode .status-pending { background: #78350f; color: #fcd34d; }
 .progress-label {
   font-size: 0.94rem;
   margin-bottom: 0.5rem;
-  color: #475569;
-}
-
-body.dark-mode .progress-label {
-  color: #cbd5e1;
+  color: #495057;
 }
 
 .progress-bar {
   height: 10px;
-  background: #e2e8f0;
-  border-radius: 999px;
+  background: #e9ecef;
+  border-radius: 50px;
   overflow: hidden;
   margin-bottom: 0.4rem;
 }
 
-body.dark-mode .progress-bar {
-  background: #334155;
-}
-
 .progress-fill {
   height: 100%;
-  background: #3b82f6;
+  background: #dc3545;
   transition: width 0.5s ease;
 }
 
 .progress-percentage {
   font-size: 0.92rem;
   font-weight: 600;
-  color: #2563eb;
+  color: #dc3545;
   text-align: right;
 }
 
@@ -95,20 +100,47 @@ body.dark-mode .progress-bar {
   flex-direction: column;
   gap: 0.5rem;
   font-size: 0.96rem;
-  color: #475569;
+  color: #495057;
   margin-bottom: 1.6rem;
-}
-
-body.dark-mode .project-meta {
-  color: #cbd5e1;
 }
 
 .project-actions {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.9rem;
+  gap: 1rem;
 }
 
+.btn.primary {
+  background: #dc3545;
+  color: white;
+  border: none;
+  padding: 0.8rem 1.6rem;
+  border-radius: 50px;
+  font-weight: 600;
+  transition: all 0.25s;
+}
+
+.btn.primary:hover {
+  background: #c82333;
+  transform: translateY(-2px);
+}
+
+.btn.secondary {
+  background: #6c757d;
+  color: white;
+  border: none;
+  padding: 0.8rem 1.6rem;
+  border-radius: 50px;
+  font-weight: 600;
+  transition: all 0.25s;
+}
+
+.btn.secondary:hover {
+  background: #5a6268;
+  transform: translateY(-2px);
+}
+
+/* Responsive */
 @media (max-width: 720px) {
   .project-header {
     flex-direction: column;
@@ -116,7 +148,6 @@ body.dark-mode .project-meta {
   }
   .project-actions {
     flex-direction: column;
-    align-items: stretch;
   }
   .project-actions .btn {
     width: 100%;

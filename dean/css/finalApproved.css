@@ -1,117 +1,222 @@
-/* finalApproved.css - Boxed list and premium hover effects */
+/* finalApproved.css — 50/50 Blue + Red balanced design */
+/* Blue for structure/identity, Red for actions/priority — aligned with deanProfile */
 
+:root {
+  --sidebar-blue:          #1e40af;         /* Core blue identity */
+  --sidebar-dark:          #1e3a8a;
+  --sidebar-hover:         #3b82f6;
+  --sidebar-active:        #60a5fa;
+  --accent-red:            #ef4444;         /* Core red for actions */
+  --accent-red-hover:      #dc2626;
+  --accent-red-light:      #fee2e2;
+  --accent-blue-light:     #60a5fa;
+  --accent-blue-soft:      #bfdbfe;
+  --bg-main:               #f8fafc;
+  --card-bg:               white;
+  --text-primary:          #0f172a;
+  --text-secondary:        #475569;
+  --text-light:            #64748b;
+  --shadow-soft:           0 4px 12px rgba(0,0,0,0.06);
+  --shadow-medium:         0 10px 22px rgba(0,0,0,0.09);
+  --shadow-elevated:       0 20px 35px rgba(0,0,0,0.12);
+  --radius-lg:             1.5rem;
+  --radius-pill:           9999px;
+}
+
+body.dark-mode {
+  --bg-main:               #0f172a;
+  --card-bg:               #1e293b;
+  --text-primary:          #f1f5f9;
+  --text-secondary:        #94a3b8;
+  --text-light:            #cbd5e1;
+  --shadow-soft:           0 6px 18px rgba(0,0,0,0.5);
+  --shadow-medium:         0 14px 30px rgba(0,0,0,0.55);
+  --shadow-elevated:       0 25px 45px rgba(0,0,0,0.6);
+}
+
+/* ==================== APPROVAL LIST & CARDS ==================== */
 .approval-list {
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 2.4rem;
 }
 
 .approval-card {
-  background: white;
-  border-radius: 20px;
-  padding: 2.5rem;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.06);
-  transition: all 0.4s ease;
-  border: 1px solid rgba(0,0,0,0.05);
-}
-
-body.dark-mode .approval-card {
-  background: #1e293b;
-  border-color: #334155;
-  box-shadow: 0 10px 32px rgba(0,0,0,0.5);
+  background: var(--card-bg);
+  border-radius: var(--radius-lg);
+  padding: 3rem 2.8rem;
+  box-shadow: var(--shadow-elevated);
+  border-top: 6px solid var(--accent-red);           /* Red for urgency */
+  border-left: 6px solid var(--sidebar-blue);        /* Blue for identity */
+  transition: all 0.32s ease;
+  position: relative;
 }
 
 .approval-card:hover {
   transform: translateY(-10px);
-  box-shadow: 0 24px 60px rgba(37, 99, 235, 0.2);
-  border-color: var(--primary);
+  box-shadow: var(--shadow-elevated);
+  border-top-color: var(--accent-red-hover);
+  border-left-color: var(--sidebar-hover);
 }
 
+/* Header — blue title + red badge */
 .approval-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 2rem;
+  margin-bottom: 2.4rem;
+  flex-wrap: wrap;
+  gap: 1.2rem;
 }
 
 .thesis-title {
-  font-size: 1.6rem;
-  font-weight: 700;
-  color: var(--primary);
+  font-size: 1.9rem;
+  font-weight: 800;
+  margin: 0;
+  color: var(--sidebar-blue);
+  letter-spacing: -0.02em;
 }
 
 .status-badge {
-  padding: 0.5rem 1.2rem;
-  border-radius: 50px;
-  font-size: 0.85rem;
-  font-weight: 600;
-  background: #fffbeb;
-  color: #92400e;
+  padding: 0.65rem 1.5rem;
+  border-radius: var(--radius-pill);
+  font-size: 0.98rem;
+  font-weight: 700;
+  background: var(--accent-red);
+  color: white;
+  box-shadow: 0 2px 8px rgba(239,68,68,0.3);
 }
 
+/* Info Grid — blue labels, red values hover */
 .thesis-info {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 1.5rem;
-  margin-bottom: 2rem;
-  padding: 1.5rem;
-  background: #f8fafc;
-  border-radius: 12px;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 2rem;
+  margin-bottom: 2.8rem;
+  padding: 2rem;
+  background: var(--accent-blue-soft);
+  border-radius: 1.3rem;
+  border: 1px solid rgba(96,165,250,0.25);
 }
 
 body.dark-mode .thesis-info {
-  background: #0f172a;
+  background: rgba(30,64,175,0.15);
+  border-color: rgba(96,165,250,0.3);
 }
 
 .info-item label {
   display: block;
-  font-size: 0.8rem;
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--sidebar-blue);
+  margin-bottom: 0.55rem;
   text-transform: uppercase;
-  color: #64748b;
-  margin-bottom: 0.3rem;
+  letter-spacing: 0.6px;
 }
 
 .info-item span {
-  font-weight: 600;
-  color: #1e293b;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  transition: color 0.2s ease;
 }
 
-body.dark-mode .info-item span {
-  color: #e2e8f0;
+.info-item:hover span {
+  color: var(--accent-red);
 }
 
+/* Actions — red primary, blue secondary/outline */
 .approval-actions {
   display: flex;
-  gap: 1rem;
   flex-wrap: wrap;
+  gap: 1.3rem;
 }
 
 .btn {
-  padding: 0.8rem 1.8rem;
-  border-radius: 10px;
-  font-weight: 600;
+  padding: 1.05rem 2.4rem;
+  border-radius: var(--radius-pill);
+  font-size: 1.1rem;
+  font-weight: 700;
   cursor: pointer;
-  transition: 0.3s;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.btn.primary {
+  background: var(--accent-red);
+  color: white;
+  box-shadow: 0 6px 18px rgba(239,68,68,0.4);
   border: none;
 }
 
-.btn.primary { 
-  background: var(--primary);
-   color: white;
-   }
 .btn.primary:hover {
-   background: var(--primary-hover);
-   }
-
-.btn.secondary { background: #fee2e2; 
-  color: #b91c1c; 
-}
-.btn.secondary:hover { 
-background: #fecaca; 
+  background: var(--accent-red-hover);
+  transform: translateY(-4px) scale(1.04);
+  box-shadow: 0 14px 32px rgba(220,38,38,0.5);
 }
 
-.btn.outline { 
+.btn.secondary {
+  background: var(--sidebar-blue);
+  color: white;
+  border: none;
+}
+
+.btn.secondary:hover {
+  background: var(--sidebar-hover);
+  transform: translateY(-3px);
+}
+
+.btn.outline {
   background: transparent;
-   border: 1px solid #cbd5e1; 
-   color: #64748b; 
+  border: 2px solid var(--sidebar-blue);
+  color: var(--sidebar-blue);
+  font-weight: 700;
+}
+
+.btn.outline:hover {
+  background: var(--accent-blue-soft);
+  border-color: var(--accent-red);
+  color: var(--accent-red);
+  transform: translateY(-3px);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .approval-card {
+    padding: 2.6rem 2.2rem;
+    margin: 0 1.6rem;
   }
+
+  .thesis-title {
+    font-size: 1.7rem;
+  }
+
+  .thesis-info {
+    grid-template-columns: 1fr;
+    gap: 1.8rem;
+    padding: 1.8rem;
+  }
+
+  .approval-actions {
+    flex-direction: column;
+  }
+
+  .btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .approval-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.2rem;
+  }
+
+  .status-badge {
+    align-self: flex-start;
+  }
+}

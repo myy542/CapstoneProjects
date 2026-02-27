@@ -94,9 +94,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Profile - Theses Archive</title>
-    <link rel="stylesheet" href="css/base.css">
-    <link rel="stylesheet" href="css/profile.css?v=<?= time() ?>">
+    <title>Edit Profile - TAP Archive</title>
+    <link rel="stylesheet" href="css/base.css?v=<?= time() ?>">
     <link rel="stylesheet" href="css/edit_profile.css?v=<?= time() ?>">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
@@ -106,7 +105,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     <aside class="sidebar">
         <div class="sidebar-header">
-            <h2>Theses Archive</h2>
+            <div class="logo-wrapper">
+                <div class="logo">TAP</div>
+                <span>ARCHIVE</span>
+            </div>
             <p>Student Portal</p>
         </div>
 
@@ -114,18 +116,20 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             <a href="student_dashboard.php" class="nav-link">
                 <i class="fas fa-home"></i> Dashboard
             </a>
-            <a href="profile.php" class="nav-link active">
+            <a href="profile.php" class="nav-link">
                 <i class="fas fa-user"></i> Profile
             </a>
             <a href="projects.php" class="nav-link">
-                <i class="fas fa-folder-open"></i> My Projects
+                <i class="fas fa-folder"></i> My Projects
+            </a>
+            <a href="submission.php" class="nav-link">
+                <i class="fas fa-upload"></i> Submit Thesis
             </a>
             <a href="archived.php" class="nav-link">
                 <i class="fas fa-archive"></i> Archived Theses
             </a>
             <a href="notification.php" class="nav-link">
                 <i class="fas fa-bell"></i> Notifications
-                <span class=""></span>
             </a>
         </nav>
 
@@ -138,95 +142,90 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                     <span class="slider"></span>
                 </label>
             </div>
-            <a href="../authentication/logout.php" class="logout-btn">
-                <i class="fas fa-sign-out-alt"></i> Logout
+            <a href="../authentication/logout.php" class="nav-link logout">
+                <i class="fas fa-sign-out-alt"></i> Sign Out
             </a>
         </div>
     </aside>
 
     <main class="main-content">
 
-        <header class="topbar">
-          <div class="profile-container"></div>
-            <button class="mobile-menu-btn" onclick="document.querySelector('.sidebar').classList.toggle('active')">
-                <i class="fas fa-bars"></i>
-            </button>
+        <header class="welcome-header">
+            <h1>Edit Profile</h1>
+            <div class="student-id-container">
+                <span class="notification-bell"><i class="fas fa-bell"></i><sup>2</sup></span>
+                STUDENT ID <strong>DU</strong> #<?= str_pad($user_id, 6, "0", STR_PAD_LEFT) ?>
+            </div>
         </header>
 
-<div class="profile-container">
-
-    <div class="profile-card main">
-
-        <h2 class="profile-title">Edit Profile</h2>
-
-        <?php if ($error): ?>
-            <div class="alert" style="padding:1rem; background:#fee2e2; color:#991b1b; border-radius:10px; margin-bottom:1.5rem;">
-                <?= htmlspecialchars($error) ?>
-            </div>
-        <?php endif; ?>
-
-        <form method="POST" enctype="multipart/form-data" class="edit-form">
-
-            <div class="form-group picture-group">
-                <label>Profile Picture</label>
-
-                <?php if ($profilePicUrl && file_exists(__DIR__ . "/../uploads/profile_pictures/" . $user["profile_picture"])): ?>
-                    <div class="current-picture">
-                        <img src="<?= htmlspecialchars($profilePicUrl) ?>?v=<?= time() ?>" alt="Current profile picture">
-                    </div>
-                <?php else: ?>
-                    <div class="current-picture placeholder">
-                        No picture set
+        <section class="edit-section">
+            <div class="edit-main-card">
+                <?php if ($error): ?>
+                    <div class="alert error">
+                        <?= htmlspecialchars($error) ?>
                     </div>
                 <?php endif; ?>
 
-                <div class="file-upload-wrapper">
-                    <input type="file" name="profile_picture" accept="image/jpeg,image/png" id="profile_picture">
-                    <label for="profile_picture" class="file-upload-btn">Choose File</label>
-                    <span class="file-name">No file chosen</span>
-                </div>
-            </div>
+                <form method="POST" enctype="multipart/form-data" class="edit-form">
+                    <div class="picture-section">
+                        <label>Profile Picture</label>
 
-            <div class="form-group">
-                <label for="first_name">First Name</label>
-                <input type="text" id="first_name" name="first_name" value="<?= htmlspecialchars($first) ?>" required>
-            </div>
+                        <?php if ($profilePicUrl && file_exists(__DIR__ . "/../uploads/profile_pictures/" . $user["profile_picture"])): ?>
+                            <img src="<?= htmlspecialchars($profilePicUrl) ?>?v=<?= time() ?>" class="current-photo" alt="Current">
+                        <?php else: ?>
+                            <div class="current-photo placeholder">No photo</div>
+                        <?php endif; ?>
 
-            <div class="form-group">
-                <label for="last_name">Last Name</label>
-                <input type="text" id="last_name" name="last_name" value="<?= htmlspecialchars($last) ?>" required>
-            </div>
+                        <div class="upload-area">
+                            <label for="profile_picture" class="upload-btn">
+                                <i class="fas fa-upload"></i> Choose New Photo
+                            </label>
+                            <input type="file" id="profile_picture" name="profile_picture" accept="image/*" hidden>
+                            <span class="file-name">No file selected</span>
+                        </div>
+                    </div>
 
-            <div class="form-group">
-                <label for="email">Email</label>
-                <input type="email" id="email" name="email" value="<?= htmlspecialchars($user["email"]) ?>" required>
-            </div>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="first_name">First Name</label>
+                            <input type="text" id="first_name" name="first_name" value="<?= htmlspecialchars($first) ?>" required>
+                        </div>
 
-            <div class="form-group">
-                <label for="contact_number">Contact Number</label>
-                <input type="tel" id="contact_number" name="contact_number" value="<?= htmlspecialchars($user["contact_number"] ?? '') ?>">
-            </div>
+                        <div class="form-group">
+                            <label for="last_name">Last Name</label>
+                            <input type="text" id="last_name" name="last_name" value="<?= htmlspecialchars($last) ?>" required>
+                        </div>
 
-            <div class="form-group">
-                <label for="birth_date">Birth Date</label>
-                <input type="date" id="birth_date" name="birth_date" value="<?= htmlspecialchars($user["birth_date"] ?? '') ?>">
-            </div>
+                        <div class="form-group full-width">
+                            <label for="email">Email Address</label>
+                            <input type="email" id="email" name="email" value="<?= htmlspecialchars($user["email"]) ?>" required>
+                        </div>
 
-            <div class="form-group">
-                <label for="address">Address</label>
-                <textarea id="address" name="address" rows="4"><?= htmlspecialchars($user["address"] ?? '') ?></textarea>
-            </div>
+                        <div class="form-group">
+                            <label for="contact_number">Contact Number</label>
+                            <input type="tel" id="contact_number" name="contact_number" value="<?= htmlspecialchars($user["contact_number"] ?? '') ?>">
+                        </div>
 
-            <div class="form-actions">
-                <a href="profile.php" class="btn secondary">Cancel</a>
-                <button type="submit" class="btn primary">Save Changes</button>
-            </div>
-        </form>
-    </div>
+                        <div class="form-group">
+                            <label for="birth_date">Birth Date</label>
+                            <input type="date" id="birth_date" name="birth_date" value="<?= htmlspecialchars($user["birth_date"] ?? '') ?>">
+                        </div>
 
-</div>
+                        <div class="form-group full-width">
+                            <label for="address">Address</label>
+                            <textarea id="address" name="address" rows="3"><?= htmlspecialchars($user["address"] ?? '') ?></textarea>
+                        </div>
+
+                        <div class="form-actions full-width">
+                            <a href="profile.php" class="btn secondary">Cancel</a>
+                            <button type="submit" class="btn primary">Save Changes</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </section>
+
     </main>
-
 </div>
 
 <script>
@@ -243,7 +242,7 @@ if (toggle) {
 }
 
 document.getElementById('profile_picture')?.addEventListener('change', function(e) {
-    const fileName = e.target.files.length > 0 ? e.target.files[0].name : 'No file chosen';
+    const fileName = e.target.files.length > 0 ? e.target.files[0].name : 'No file selected';
     document.querySelector('.file-name').textContent = fileName;
 });
 </script>

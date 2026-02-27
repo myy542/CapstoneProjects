@@ -1,56 +1,66 @@
-/* facultyProfile.css - Clean Dean-style Faculty Profile */
+/* facultyProfile.css - clean white card + red-white-blue theme */
 
-.profile-card {
-  background: var(--card-bg, white);
-  border-radius: 20px;
-  padding: 3rem 2.5rem;
-  box-shadow: 0 10px 35px rgba(0,0,0,0.1);
-  max-width: 520px;
-  margin: 2rem auto;
-  text-align: center;
+.profile-section {
+  margin-top: 1.5rem;
 }
 
-.avatar-section,
-.avatar-placeholder {
-  width: 180px;
-  height: 180px;
+.profile-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 2.5rem;
+  box-shadow: var(--shadow);
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.profile-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-hover);
+}
+
+.profile-header {
+  margin-bottom: 2rem;
+}
+
+.big-avatar,
+.big-avatar-placeholder {
+  width: 160px;
+  height: 160px;
   border-radius: 50%;
-  margin: 0 auto 1.8rem;
-  background: #3b82f6;
+  border: 5px solid white;
+  box-shadow: var(--shadow);
+  margin: 0 auto;
+  object-fit: cover;
+  background: var(--sidebar);
   color: white;
-  font-size: 4.8rem;
-  font-weight: 700;
+  font-size: 4.5rem;
+  font-weight: bold;
   display: flex;
   align-items: center;
   justify-content: center;
-  overflow: hidden;
-  box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
-}
-
-.avatar-section img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
 }
 
 .profile-name {
-  font-size: 2.35rem;
+  font-size: 2.3rem;
   font-weight: 700;
-  margin-bottom: 2.2rem;
-  color: #1e293b;
+  margin: 1.2rem 0 0.6rem;
+  color: var(--sidebar);
 }
 
 .profile-details {
   max-width: 420px;
-  margin: 0 auto;
+  margin: 0 auto 2rem;
 }
 
 .detail-row {
   display: flex;
   justify-content: space-between;
-  padding: 1.2rem 0;
-  border-bottom: 1px solid #e5e7eb;
-  font-size: 1.08rem;
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 1.05rem;
 }
 
 .detail-row:last-child {
@@ -58,58 +68,63 @@
 }
 
 .label {
-  font-weight: 500;
-  color: #64748b;
+  font-weight: 600;
+  color: var(--muted);
+  min-width: 160px;
+  text-align: left;
 }
 
 .value {
-  font-weight: 500;
-  color: #1e293b;
+  flex: 1;
+  text-align: right;
+  color: var(--text);
 }
 
-/* Button */
 .profile-actions {
-  margin-top: 2.8rem;
+  margin-top: 2rem;
 }
 
-.profile-actions .btn {
+.btn.primary {
+  background: var(--red);
+  color: white;
+  border: none;
   padding: 0.95rem 2.2rem;
+  border-radius: var(--pill);
+  font-weight: 600;
   font-size: 1.05rem;
-  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.25s;
+  display: inline-block;
+  text-decoration: none;
 }
 
-/* Dark Mode */
-body.dark-mode .profile-card {
-  background: #1e293b;
-  box-shadow: 0 10px 35px rgba(0,0,0,0.45);
-}
-
-body.dark-mode .profile-name {
-  color: #e2e8f0;
-}
-
-body.dark-mode .detail-row {
-  border-bottom-color: #334155;
-}
-
-body.dark-mode .label {
-  color: #94a3b8;
-}
-
-body.dark-mode .value {
-  color: #e2e8f0;
+.btn.primary:hover {
+  background: var(--red-dark);
+  transform: translateY(-2px);
 }
 
 /* Responsive */
 @media (max-width: 768px) {
   .profile-card {
-    margin: 1.5rem 1rem;
-    padding: 2.2rem 1.8rem;
+    padding: 2rem 1.6rem;
+    margin: 1rem;
   }
-  .avatar-section,
-  .avatar-placeholder {
-    width: 150px;
-    height: 150px;
-    font-size: 4rem;
+  .big-avatar,
+  .big-avatar-placeholder {
+    width: 130px;
+    height: 130px;
+    font-size: 3.8rem;
+  }
+  .profile-name {
+    font-size: 2rem;
+  }
+  .detail-row {
+    flex-direction: column;
+    text-align: center;
+    gap: 0.4rem;
+  }
+  .label,
+  .value {
+    text-align: center;
   }
 }

@@ -1,4 +1,4 @@
-/* css/facultyFeedback.css - Elegant feedback page */
+/* facultyFeedback.css - elegant feedback page with red-white-blue */
 
 .feedback-stats {
   display: grid;
@@ -8,52 +8,37 @@
 }
 
 .stat-card {
-  background: white;
-  border-radius: 16px;
+  background: var(--card);
+  border-radius: var(--radius);
   padding: 2rem;
   text-align: center;
-  box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+  box-shadow: var(--shadow);
   transition: all 0.3s ease;
-}
-
-body.dark-mode .stat-card {
-  background: #1e293b;
-  box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+  border: 1px solid var(--border);
 }
 
 .stat-card:hover {
   transform: translateY(-8px);
-  box-shadow: 0 16px 40px rgba(0,0,0,0.15);
+  box-shadow: var(--shadow-hover);
+  border-color: var(--red);
 }
 
 .stat-icon {
   font-size: 2.8rem;
-  color: #3b82f6;
+  color: var(--red);
   margin-bottom: 1rem;
-}
-
-body.dark-mode .stat-icon {
-  color: #60a5fa;
 }
 
 .stat-value {
   font-size: 3rem;
   font-weight: 700;
-  color: #1e40af;
+  color: var(--sidebar);
   margin-bottom: 0.5rem;
-}
-
-body.dark-mode .stat-value {
-  color: #93c5fd;
 }
 
 .stat-label {
   font-size: 1.1rem;
-  color: #64748b;
-}
-
-body.dark-mode .stat-label {
-  color: #94a3b8;
+  color: var(--muted);
 }
 
 .feedback-list {
@@ -63,21 +48,18 @@ body.dark-mode .stat-label {
 }
 
 .feedback-card {
-  background: white;
-  border-radius: 16px;
+  background: var(--card);
+  border-radius: var(--radius);
   padding: 2rem;
-  box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+  box-shadow: var(--shadow);
   transition: all 0.3s ease;
-}
-
-body.dark-mode .feedback-card {
-  background: #1e293b;
-  box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+  border: 1px solid var(--border);
 }
 
 .feedback-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 16px 40px rgba(0,0,0,0.15);
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-hover);
+  border-color: var(--red);
 }
 
 .feedback-header {
@@ -92,39 +74,23 @@ body.dark-mode .feedback-card {
 .feedback-header h3 {
   font-size: 1.35rem;
   font-weight: 600;
-  color: #1e40af;
-}
-
-body.dark-mode .feedback-header h3 {
-  color: #93c5fd;
+  color: var(--sidebar);
 }
 
 .feedback-date {
   font-size: 0.95rem;
-  color: #64748b;
-}
-
-body.dark-mode .feedback-date {
-  color: #94a3b8;
+  color: var(--muted);
 }
 
 .feedback-text {
   font-size: 1.05rem;
   line-height: 1.7;
   margin-bottom: 1.2rem;
-  color: #475569;
-}
-
-body.dark-mode .feedback-text {
-  color: #cbd5e1;
+  color: var(--text);
 }
 
 .feedback-student {
   font-size: 1rem;
   font-weight: 500;
-  color: #3b82f6;
-}
-
-body.dark-mode .feedback-student {
-  color: #60a5fa;
+  color: var(--red);
 }

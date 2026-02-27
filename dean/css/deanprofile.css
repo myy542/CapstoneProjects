@@ -1,45 +1,91 @@
+/* deanProfile.css — Updated to match student dashboard style with more red accents */
+/* Blue sidebar + stronger red for actions/emphasis + clean modern cards */
+
 :root {
-  --card-bg: white;
-  --primary: #6366f1;
-  --text-secondary: #6b7280;
-  --border: #e5e7eb;
-  --danger: #ef4444;
+  --sidebar-blue:          #1e40af;         /* TAP ARCHIVE blue */
+  --sidebar-dark:          #1e3a8a;
+  --sidebar-hover:         #3b82f6;
+  --sidebar-active:        #60a5fa;
+  --accent-red:            #ef4444;         /* Strong red from student dashboard */
+  --accent-red-hover:      #dc2626;
+  --accent-red-light:      #fee2e2;         /* Very light red backgrounds */
+  --accent-blue-light:     #60a5fa;
+  --accent-blue-soft:      #bfdbfe;
+  --bg-main:               #f8fafc;
+  --card-bg:               white;
+  --text-primary:          #0f172a;
+  --text-secondary:        #475569;
+  --text-light:            #64748b;
+  --shadow-soft:           0 4px 10px rgba(0,0,0,0.06), 0 2px 4px rgba(0,0,0,0.04);
+  --shadow-medium:         0 10px 20px rgba(0,0,0,0.08), 0 4px 8px rgba(0,0,0,0.06);
+  --shadow-elevated:       0 20px 30px rgba(0,0,0,0.1), 0 10px 15px rgba(0,0,0,0.08);
+  --radius-lg:             1.5rem;          /* Rounded like student cards */
+  --radius-pill:           9999px;
 }
 
-.dark-mode {
-  --card-bg: #1f2937;
-  --text-secondary: #9ca3af;
-  --border: #374151;
+body.dark-mode {
+  --bg-main:               #0f172a;
+  --card-bg:               #1e293b;
+  --text-primary:          #f1f5f9;
+  --text-secondary:        #94a3b8;
+  --text-light:            #cbd5e1;
+  --shadow-soft:           0 6px 16px rgba(0,0,0,0.5);
+  --shadow-medium:         0 12px 28px rgba(0,0,0,0.55);
+  --shadow-elevated:       0 24px 40px rgba(0,0,0,0.6);
 }
 
+/* ==================== PROFILE CARD ==================== */
 .profile-card {
   background: var(--card-bg);
-  border-radius: 16px;
-  padding: 2.5rem;
-  box-shadow: 0 6px 20px rgba(0,0,0,0.08);
-  max-width: 620px;
-  margin: 2rem auto;
+  border-radius: var(--radius-lg);
+  padding: 3.2rem 3rem;
+  box-shadow: var(--shadow-elevated);
+  max-width: 720px;
+  margin: 2.8rem auto;
   text-align: center;
+  border-top: 6px solid var(--accent-red);           /* Red top border like priority elements */
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
+.profile-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 6px;
+  background: linear-gradient(90deg, var(--accent-red), #f87171);
+}
+
+.profile-card:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-elevated);
+}
+
+/* Avatar — bigger & red border glow */
 .avatar-container {
-  margin-bottom: 1.5rem;
+  margin-bottom: 2.2rem;
+  position: relative;
 }
 
 .profile-avatar,
-.avatar-placeholder {
-  width: 140px;
-  height: 140px;
+.initials {
+  width: 180px;
+  height: 180px;
   border-radius: 50%;
-  background: var(--primary);
+  background: linear-gradient(135deg, var(--sidebar-blue) 0%, var(--sidebar-dark) 100%);
   color: white;
-  font-size: 3.8rem;
-  font-weight: bold;
+  font-size: 4.8rem;
+  font-weight: 800;
   display: flex;
   align-items: center;
   justify-content: center;
   margin: 0 auto;
-  overflow: hidden;
+  box-shadow: var(--shadow-medium);
+  border: 8px solid var(--accent-red-light);
+  transition: all 0.35s ease;
 }
 
 .profile-avatar img {
@@ -48,21 +94,44 @@
   object-fit: cover;
 }
 
+.profile-avatar:hover,
+.initials:hover {
+  transform: scale(1.08);
+  border-color: var(--accent-red);
+  box-shadow: 0 0 0 10px rgba(239, 68, 68, 0.18);
+}
+
+/* Name — red gradient like important titles */
 .profile-name {
-  font-size: 2.2rem;
-  margin: 0.5rem 0 1.5rem;
-  font-weight: 600;
+  font-size: 2.8rem;
+  font-weight: 800;
+  margin: 0.8rem 0 2rem;
+  letter-spacing: -0.025em;
+  background: linear-gradient(90deg, var(--sidebar-blue) 0%, var(--accent-red) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Details — cleaner, red hover accent */
+.profile-details {
+  max-width: 560px;
+  margin: 0 auto 3rem;
 }
 
 .detail-item {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1.1rem 0;
-  border-bottom: 1px solid var(--border);
-  max-width: 480px;
-  margin: 0 auto;
-  text-align: left;
+  padding: 1.4rem 1.8rem;
+  border-bottom: 1px solid rgba(226, 232, 240, 0.7);
+  font-size: 1.18rem;
+  border-radius: 0.9rem;
+  transition: all 0.25s ease;
+}
+
+.detail-item:hover {
+  background: var(--accent-red-light);
+  transform: translateX(6px);
 }
 
 .detail-item:last-child {
@@ -70,51 +139,96 @@
 }
 
 .label {
-  font-weight: 500;
+  font-weight: 600;
   color: var(--text-secondary);
-  min-width: 140px;
+  min-width: 170px;
+  text-align: left;
 }
 
 .value {
   flex: 1;
-  font-weight: 500;
+  font-weight: 600;
+  color: var(--text-primary);
+  text-align: right;
 }
 
+/* Edit Button — matches red pill buttons from student dashboard */
+.action-area {
+  margin-top: 2rem;
+}
 
+.edit-btn.btn.primary {
+  background: var(--accent-red);
+  color: white;
+  border: none;
+  padding: 1.15rem 3rem;
+  border-radius: var(--radius-pill);
+  font-size: 1.18rem;
+  font-weight: 700;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  transition: all 0.28s ease;
+  box-shadow: 0 6px 16px rgba(239, 68, 68, 0.35);
+}
+
+.edit-btn.btn.primary:hover {
+  background: var(--accent-red-hover);
+  transform: translateY(-4px) scale(1.04);
+  box-shadow: 0 12px 28px rgba(220, 38, 38, 0.45);
+}
+
+.edit-btn i {
+  font-size: 1.25rem;
+}
+
+/* Responsive */
 @media (max-width: 768px) {
   .profile-card {
-    margin: 1.5rem 1rem;
-    padding: 2rem 1.5rem;
+    margin: 2rem 1.8rem;
+    padding: 2.8rem 2.2rem;
+  }
+
+  .profile-avatar,
+  .initials {
+    width: 150px;
+    height: 150px;
+    font-size: 4rem;
+  }
+
+  .profile-name {
+    font-size: 2.3rem;
   }
 
   .detail-item {
     flex-direction: column;
-    gap: 0.5rem;
+    gap: 0.7rem;
     text-align: center;
+    padding: 1.5rem 1.2rem;
   }
 
-  .label {
+  .label,
+  .value {
+    text-align: center;
     min-width: auto;
   }
 
-  .profile-name {
-    font-size: 1.9rem;
-  }
-
-  .profile-avatar,
-  .avatar-placeholder {
-    width: 120px;
-    height: 120px;
-    font-size: 3.2rem;
+  .edit-btn.btn.primary {
+    padding: 1rem 2.5rem;
+    font-size: 1.1rem;
   }
 }
 
 @media (max-width: 480px) {
   .profile-name {
-    font-size: 1.7rem;
+    font-size: 2rem;
   }
 
-  .detail-item {
-    padding: 1rem 0;
+  .profile-avatar,
+  .initials {
+    width: 130px;
+    height: 130px;
+    font-size: 3.5rem;
   }
 }

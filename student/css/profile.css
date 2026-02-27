@@ -1,304 +1,213 @@
-/* ===== PROFILE VIEW - Centered, No Excessive Width ===== */
+/* profile.css - red-white-blue theme, matches student layout */
 
-:root {
-  --card-bg: #ffffff;
-  --card-bg-dark: #1e293b;
-  --text-dark: #0f172a;
-  --text-light: #e5e7eb;
-  --muted: #6b7280;
-  --muted-dark: #94a3b8;
-  --primary: #3b82f6;
-  --primary-hover: #2563eb;
-  --radius: 16px;
-  --shadow: 0 4px 20px rgba(0,0,0,0.08);
+.profile-hub {
+  margin-bottom: 3rem;
 }
 
-body {
-  background: #f8fafc;
-  color: var(--text-dark);
-  min-height: 100vh;
-  margin: 0;
-  font-family: system-ui, -apple-system, sans-serif;
-}
-
-body.dark-mode {
-  background: #0f172a;
-  color: var(--text-light);
-}
-
-/* ✅ Center main area */
-.main-content {
+.hub-grid {
   display: flex;
-  justify-content: center;   /* horizontal center */
-  align-items: center;       /* vertical center */
-  min-height: 100vh;
-  position: relative;        /* for mobile button if needed */
+  gap: 1.8rem;
+  flex-wrap: wrap;
 }
 
-/* ✅ Container grid */
-.profile-container {
-  max-width: 1200px;         /* same limit as edit page */
-  width: 100%;
-  margin: 0 auto;            /* centers the content block */
-  display: grid;
-  grid-template-columns: 3fr 1fr;
-  gap: 2rem;
-}
-
-/* ✅ Card */
-.profile-card {
-  background: var(--card-bg);
-  border-radius: var(--radius);
+/* Main profile card */
+.profile-main-card {
+  background: var(--card, #ffffff);
+  border: 1px solid var(--border, #dee2e6);
+  border-radius: var(--radius, 12px);
   padding: 2rem;
-  box-shadow: var(--shadow);
+  box-shadow: var(--shadow, 0 6px 20px rgba(0,0,0,0.08));
+  flex: 3;
+  min-width: 400px;
+  transition: all 0.3s ease;
 }
 
-body.dark-mode .profile-card {
-  background: var(--card-bg-dark);
-  box-shadow: 0 6px 24px rgba(0,0,0,0.35);
+.profile-main-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-hover, 0 16px 40px rgba(0,0,0,0.16));
 }
 
-/* =========================
-   ✅ MERGED: Title above image
-   ========================= */
-.card-title {
-  margin-bottom: 18px;
-  padding-bottom: 12px;
-  border-bottom: 1px solid rgba(15, 23, 42, 0.10);
-}
-
-body.dark-mode .card-title {
-  border-bottom-color: rgba(229, 231, 235, 0.10);
-}
-
-.card-title h1 {
-  margin: 0;
-  font-size: 34px;
-  font-weight: 700;
-  letter-spacing: 0.2px;
-  color: var(--primary);
-}
-
-/* If gusto nimo centered ang "My Profile", i-uncomment ni:
-.card-title { text-align: center; }
-*/
-
-/* =========================
-   Avatar section
-   ========================= */
-.profile-top {
-  text-align: center;
+.profile-header {
+  display: flex;
+  align-items: center;
+  gap: 1.8rem;
   margin-bottom: 2rem;
+  flex-wrap: wrap;
 }
 
-.big-avatar-wrapper,
-.big-avatar {
+.profile-avatar.large {
   width: 140px;
   height: 140px;
-  margin: 0 auto 1rem;
   border-radius: 50%;
-  overflow: hidden;
-}
-
-.big-avatar-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
   border: 5px solid white;
+  box-shadow: var(--shadow);
+  object-fit: cover;
 }
 
-body.dark-mode .big-avatar-img {
-  border-color: #334155;
-}
-
-.big-avatar {
-  background: linear-gradient(135deg, var(--primary), #6366f1);
+.profile-avatar.initials {
+  background: var(--sidebar, #0d47a1);
+  color: white;
+  font-size: 3.6rem;
+  font-weight: bold;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 3.2rem;
-  font-weight: bold;
-  color: white;
 }
 
-.profile-info h1 {
-  margin: 0.5rem 0 0.25rem;
-  font-size: 2.1rem;
+.profile-info h2 {
+  margin: 0;
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: var(--sidebar, #0d47a1);
 }
 
-.student-id {
-  color: var(--muted);
-  font-size: 0.95rem;
+.subtitle {
+  color: var(--muted, #6c757d);
+  margin: 0.4rem 0 0;
+  font-size: 1.05rem;
 }
 
-/* Details */
 .profile-details {
-  margin: 1.5rem 0 2rem;
+  display: grid;
+  gap: 1.2rem;
 }
 
-.detail-row {
+.detail-item {
   display: flex;
   justify-content: space-between;
-  padding: 0.9rem 0;
-  border-bottom: 1px solid #e5e7eb;
-  gap: 1rem;
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--border, #dee2e6);
 }
 
-body.dark-mode .detail-row {
-  border-bottom-color: #475569;
-}
-
-.detail-row strong {
-  min-width: 120px;
+.detail-item strong {
+  min-width: 140px;
   font-weight: 600;
+  color: var(--text, #212529);
 }
 
-.detail-row span {
-  color: var(--muted);
+.detail-item span {
   text-align: right;
   flex: 1;
+  color: var(--muted, #495057);
 }
 
-/* Edit button */
 .edit-btn {
+  background: var(--red, #dc3545);
+  color: white;
+  border: none;
+  padding: 0.9rem 1.9rem;
+  border-radius: var(--pill, 50px);
+  font-weight: 600;
+  cursor: pointer;
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
-  padding: 0.75rem 1.5rem;
-  background: var(--primary);
-  color: white;
-  border-radius: 10px;
+  gap: 0.6rem;
+  transition: all 0.25s;
+  margin-top: 1.6rem;
   text-decoration: none;
-  font-weight: 600;
-  transition: all 0.2s;
 }
 
 .edit-btn:hover {
-  background: var(--primary-hover);
-  transform: translateY(-1px);
+  background: var(--red-dark, #c82333);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-hover);
 }
 
 /* Progress card */
-.profile-card.stats {
-  padding: 1.75rem;
+.progress-card {
+  background: var(--card, #ffffff);
+  border: 1px solid var(--border, #dee2e6);
+  border-radius: var(--radius, 12px);
+  padding: 2rem;
+  box-shadow: var(--shadow, 0 6px 20px rgba(0,0,0,0.08));
+  flex: 1;
+  min-width: 300px;
+  text-align: center;
+  transition: all 0.3s ease;
 }
 
-.progress-item {
-  margin-bottom: 1.25rem;
+.progress-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-hover, 0 16px 40px rgba(0,0,0,0.16));
 }
 
-.progress-item span {
-  display: block;
-  margin-bottom: 0.5rem;
-  font-weight: 600;
+.progress-card h3 {
+  color: var(--sidebar, #0d47a1);
+  margin-bottom: 1.2rem;
+  font-size: 1.4rem;
 }
 
-.progress-bar {
-  height: 10px;
-  background: #e5e7eb;
-  border-radius: 999px;
-  overflow: hidden;
+.progress-circle-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1.2rem;
 }
 
-body.dark-mode .progress-bar {
-  background: #334155;
+.progress-circle {
+  position: relative;
+  width: 140px;
+  height: 140px;
 }
 
-.progress-bar .fill {
+.progress-circle svg {
+  width: 100%;
   height: 100%;
-  background: linear-gradient(to right, var(--primary), #6366f1);
-  width: 0%;
-  transition: width 0.8s ease;
+  transform: rotate(-90deg);
 }
 
-/* =========================
-   ✅ MERGED: Mobile menu button
-   ========================= */
-.mobile-menu-btn {
-  position: fixed;
-  top: 16px;
-  right: 16px;
-  z-index: 999;
-  border: none;
-  background: rgba(15, 23, 42, 0.35);
-  color: #fff;
-  padding: 10px 12px;
-  border-radius: 10px;
-  cursor: pointer;
-  display: none; /* show only on mobile */
+.progress-circle .bg {
+  stroke: var(--border, #e9ecef);
+  stroke-width: 18;
+  fill: none;
 }
 
-body.dark-mode .mobile-menu-btn {
-  background: rgba(255,255,255,0.10);
+.progress-circle .fg {
+  stroke: var(--red, #dc3545);
+  stroke-width: 18;
+  stroke-linecap: round;
+  fill: none;
+  stroke-dasharray: 415;
+  stroke-dashoffset: calc(415 * (1 - 0.70));
 }
 
-/* RESPONSIVE */
-@media (max-width: 1024px) {
-  .profile-container {
-    grid-template-columns: 1fr;
-    max-width: 800px;
-  }
+.progress-text {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.progress-text span {
+  font-size: 3.2rem;
+  font-weight: 700;
+  color: var(--red, #dc3545);
+  line-height: 1;
+}
+
+.progress-text small {
+  font-size: 1rem;
+  color: var(--muted, #6c757d);
+  font-weight: 500;
+}
+
+.progress-subtitle {
+  color: var(--muted, #6c757d);
+  font-size: 1.05rem;
+  margin-top: 0.8rem;
+}
+
+/* Responsive */
+@media (max-width: 1100px) {
+  .hub-grid { flex-direction: column; }
 }
 
 @media (max-width: 768px) {
-  .main-content {
-    margin-left: 0;
-    padding: 1.25rem 1rem;
-    align-items: flex-start; /* better sa mobile */
-  }
-
-  .mobile-menu-btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .profile-top {
-    margin-bottom: 1.5rem;
-  }
-
-  .big-avatar-wrapper,
-  .big-avatar {
-    width: 120px;
-    height: 120px;
-  }
-
-  .profile-info h1 {
-    font-size: 1.9rem;
-  }
-
-  .detail-row {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.25rem;
-  }
-
-  .detail-row span {
-    text-align: left;
-  }
-
-  .edit-btn {
-    width: 100%;
-    justify-content: center;
-  }
-}
-
-@media (max-width: 480px) {
-  .profile-card {
+  .profile-main-card, .progress-card {
+    min-width: auto;
     padding: 1.5rem;
   }
-
-  .big-avatar-wrapper,
-  .big-avatar {
-    width: 110px;
-    height: 110px;
-  }
-
-  .profile-info h1 {
-    font-size: 1.7rem;
-  }
-
-  .card-title h1 {
-    font-size: 28px;
-  }
+  .progress-circle { width: 120px; height: 120px; }
+  .progress-text span { font-size: 2.6rem; }
 }

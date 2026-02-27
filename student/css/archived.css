@@ -1,31 +1,41 @@
-.archived-container {
+/* archived.css - clean white cards + red-white-blue screenshot style */
+
+.archive-section {
+  margin-top: 1.5rem;
+  margin-bottom: 3rem;
+}
+
+.subtitle {
+  color: #6c757d;
+  margin: 0 0 1.6rem;
+  font-size: 1.05rem;
+}
+
+.archive-grid {
   display: flex;
   flex-direction: column;
   gap: 1.6rem;
-  margin-top: 1.5rem;
 }
 
 .archive-card {
-  background: white;
-  border-radius: 12px;
-  padding: 1.8rem 2rem;
-  box-shadow: 0 3px 14px rgba(0,0,0,0.07);
-  transition: all 0.18s ease;
-}
-
-body.dark-mode .archive-card {
-  background: #1e293b;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.35);
+  background: #ffffff;
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+  padding: 2rem;
+  box-shadow: 0 3px 12px rgba(0,0,0,0.07);
+  transition: all 0.3s ease;
 }
 
 .archive-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 10px 22px rgba(0,0,0,0.11);
+  transform: translateY(-6px);
+  box-shadow: 0 12px 28px rgba(0,0,0,0.14);
 }
 
 .archive-card h2 {
-  margin: 0 0 1.1rem 0;
-  font-size: 1.26rem;
+  margin: 0 0 1.1rem;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #0d47a1;
 }
 
 .archive-meta {
@@ -34,45 +44,66 @@ body.dark-mode .archive-card {
   gap: 1.2rem 1.8rem;
   margin-bottom: 1.5rem;
   font-size: 0.95rem;
-  color: #475569;
+  color: #495057;
 }
 
-body.dark-mode .archive-meta {
-  color: #cbd5e1;
-}
-
-.grade {
-  font-weight: 600;
-  color: #059669;
-}
-
-body.dark-mode .grade {
-  color: #34d399;
-}
-
-.date {
-  color: #64748b;
-}
-
-body.dark-mode .date {
-  color: #94a3b8;
-}
-
-.pages {
-  color: #64748b;
-}
-
-body.dark-mode .pages {
-  color: #94a3b8;
+.adviser, .date {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 .archive-actions {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.9rem;
+  gap: 1rem;
 }
 
-@media (max-width: 640px) {
+.btn.primary {
+  background: #dc3545;
+  color: white;
+  border: none;
+  padding: 0.8rem 1.6rem;
+  border-radius: 50px;
+  font-weight: 600;
+  transition: all 0.25s;
+}
+
+.btn.primary:hover {
+  background: #c82333;
+  transform: translateY(-2px);
+}
+
+.btn.secondary {
+  background: #6c757d;
+  color: white;
+  border: none;
+  padding: 0.8rem 1.6rem;
+  border-radius: 50px;
+  font-weight: 600;
+  transition: all 0.25s;
+}
+
+.btn.secondary:hover {
+  background: #5a6268;
+  transform: translateY(-2px);
+}
+
+.no-content {
+  text-align: center;
+  padding: 3rem 2rem;
+  background: #f8f9fa;
+  border-radius: 8px;
+  color: #6c757d;
+  font-size: 1.1rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .archive-meta {
+    flex-direction: column;
+    gap: 0.8rem;
+  }
   .archive-actions {
     flex-direction: column;
   }

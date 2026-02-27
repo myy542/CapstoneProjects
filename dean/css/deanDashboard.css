@@ -1,94 +1,278 @@
-/* deanDashboard.css - Unifying the boxed layout and hover animations */
+/* deanDashboard.css — Enhanced blue-themed version inspired by TAP ARCHIVE student dashboard */
+/* More blue tones, subtle gradients, modern shadows, better spacing & visual hierarchy */
 
-/* Welcome Card - Centralized and Boxed */
-.welcome-card {
-  background: white;
-  border-radius: 20px;
-  padding: 3rem;
-  margin-bottom: 3rem;
-  box-shadow: 0 10px 36px rgba(0,0,0,0.08);
-  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  border: 1px solid rgba(226, 232, 240, 0.8);
+:root {
+  --sidebar-blue:          #1e40af;         /* Deeper, richer blue like TAP ARCHIVE */
+  --sidebar-dark:          #1e3a8a;         /* Darker variant for depth/gradient */
+  --sidebar-hover:         #3b82f6;         /* Lighter blue on hover */
+  --sidebar-active:        #60a5fa;         /* Active link highlight */
+  --accent-red:            #ef4444;         /* Red for buttons & priority */
+  --accent-red-hover:      #dc2626;
+  --accent-blue-light:     #60a5fa;         /* Softer blue for highlights */
+  --accent-blue-soft:      #bfdbfe;         /* Very light blue backgrounds */
+  --progress-orange:       #f97316;         /* Matches student dashboard progress ring */
+  --bg-main:               #f8fafc;
+  --card-bg:               white;
+  --text-primary:          #0f172a;
+  --text-secondary:        #475569;
+  --text-light:            #64748b;
+  --shadow-soft:           0 4px 6px -1px rgba(0,0,0,0.08), 0 2px 4px -2px rgba(0,0,0,0.04);
+  --shadow-medium:         0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -4px rgba(0,0,0,0.05);
+  --shadow-elevated:       0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04);
+  --radius-lg:             1.5rem;          /* Bigger, friendlier cards */
+  --radius-pill:           9999px;
+}
+
+body.dark-mode {
+  --bg-main:               #0f172a;
+  --card-bg:               #1e293b;
+  --text-primary:          #f1f5f9;
+  --text-secondary:        #94a3b8;
+  --text-light:            #cbd5e1;
+  --shadow-soft:           0 4px 12px rgba(0,0,0,0.45);
+  --shadow-medium:         0 10px 25px rgba(0,0,0,0.55);
+  --shadow-elevated:       0 20px 35px rgba(0,0,0,0.6);
+}
+
+/* ==================== BASE ==================== */
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: var(--bg-main);
+  color: var(--text-primary);
+  line-height: 1.6;
+}
+
+/* ==================== LAYOUT ==================== */
+.layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+.sidebar {
+  width: 280px;
+  background: linear-gradient(180deg, var(--sidebar-blue) 0%, var(--sidebar-dark) 100%);
+  color: white;
+  flex-shrink: 0;
+  box-shadow: 4px 0 15px rgba(0,0,0,0.15);
+}
+
+.sidebar-header {
+  padding: 2rem 1.5rem;
+  border-bottom: 1px solid rgba(255,255,255,0.12);
   text-align: center;
 }
 
-body.dark-mode .welcome-card {
-  background: #1e293b;
-  border-color: #334155;
-  box-shadow: 0 10px 36px rgba(0,0,0,0.4);
+.sidebar-header h2 {
+  margin: 0;
+  font-size: 1.85rem;
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  background: linear-gradient(90deg, #60a5fa, white);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
-.welcome-card:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 20px 50px rgba(37, 99, 235, 0.2);
-  border-color: var(--primary);
+.sidebar-header p {
+  margin: 0.4rem 0 0;
+  font-size: 0.95rem;
+  opacity: 0.85;
+  font-weight: 400;
+}
+
+.sidebar-nav {
+  padding: 1.5rem 0;
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  padding: 1.1rem 1.6rem;
+  color: white;
+  text-decoration: none;
+  font-size: 1.05rem;
+  font-weight: 500;
+  transition: all 0.22s ease;
+  border-left: 4px solid transparent;
+}
+
+.nav-link:hover {
+  background: rgba(255,255,255,0.12);
+  border-left-color: var(--sidebar-active);
+}
+
+.nav-link.active {
+  background: rgba(255,255,255,0.18);
+  border-left-color: var(--sidebar-active);
+  font-weight: 600;
+}
+
+.nav-link i {
+  margin-right: 1.2rem;
+  width: 1.4em;
+  text-align: center;
+  font-size: 1.35rem;
+  opacity: 0.9;
+}
+
+/* ==================== MAIN CONTENT ==================== */
+.main-content {
+  flex: 1;
+  padding: 2.5rem 3rem;
+  background: var(--bg-main);
+}
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 3rem;
+}
+
+.topbar h1 {
+  margin: 0;
+  font-size: 2.4rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--sidebar-blue);
+}
+
+/* Welcome Card — bigger, bolder, blue accent */
+.welcome-card {
+  background: var(--card-bg);
+  border-radius: var(--radius-lg);
+  padding: 2.8rem 3rem;
+  margin-bottom: 3.5rem;
+  box-shadow: var(--shadow-elevated);
+  border-top: 5px solid var(--sidebar-blue);
 }
 
 .welcome-card h2 {
-  font-size: 2.4rem;
-  color: var(--primary);
-  margin-bottom: 0.8rem;
+  font-size: 2.6rem;
+  font-weight: 800;
+  color: var(--sidebar-blue);
+  margin: 0 0 1rem 0;
+  letter-spacing: -0.025em;
 }
 
-/* Stats Grid Hover Effects */
+.welcome-card p {
+  font-size: 1.2rem;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+/* Stats Cards — more modern, hover lift + blue accents */
 .stats-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 2rem;
   margin-bottom: 4rem;
 }
 
 .stat-card {
-  background: white;
-  border-radius: 20px;
-  padding: 2.5rem;
+  background: var(--card-bg);
+  border-radius: var(--radius-lg);
+  padding: 2.5rem 2rem;
   text-align: center;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.05);
-  transition: all 0.4s ease;
-  border: 1px solid transparent;
-}
-
-body.dark-mode .stat-card {
-  background: #1e293b;
+  box-shadow: var(--shadow-medium);
+  transition: all 0.3s ease;
+  border-bottom: 4px solid var(--accent-blue-light);
 }
 
 .stat-card:hover {
-  transform: translateY(-12px);
-  box-shadow: 0 24px 60px rgba(251, 191, 36, 0.2);
-  border-color: #fbbf24;
+  transform: translateY(-10px);
+  box-shadow: var(--shadow-elevated);
 }
 
 .stat-icon {
-  font-size: 3rem;
-  color: #fbbf24;
-  margin-bottom: 1.5rem;
+  font-size: 3.8rem;
+  color: var(--progress-orange);
+  margin-bottom: 1.2rem;
+  opacity: 0.9;
 }
 
 .stat-value {
-  font-size: 2.8rem;
+  font-size: 3.8rem;
+  font-weight: 900;
+  line-height: 1;
+  margin: 0 0 0.6rem;
+  color: var(--sidebar-blue);
+}
+
+.stat-label {
+  font-size: 1.15rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+/* Priority Action Items — more prominent red/blue contrast */
+.recent-pending-section h3 {
+  font-size: 1.8rem;
   font-weight: 800;
-  color: #1e293b;
+  margin: 0 0 1.6rem;
+  color: var(--text-primary);
 }
 
-body.dark-mode .stat-value {
-  color: #f1f5f9;
-}
-
-/* Pending Card Styling */
 .pending-card {
-  background: white;
-  border-radius: 20px;
-  padding: 2.5rem;
-  border-left: 6px solid #fbbf24;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-  transition: all 0.35s ease;
-}
-
-body.dark-mode .pending-card {
-  background: #1e293b;
+  background: var(--card-bg);
+  border-radius: var(--radius-lg);
+  padding: 2.6rem;
+  box-shadow: var(--shadow-medium);
+  border-left: 8px solid var(--accent-red);
+  transition: all 0.3s ease;
 }
 
 .pending-card:hover {
-  transform: scale(1.02);
-  box-shadow: 0 15px 40px rgba(0,0,0,0.12);
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-elevated);
+}
+
+.pending-title {
+  margin: 0 0 1.3rem;
+  font-size: 1.65rem;
+  font-weight: 800;
+  color: var(--sidebar-blue);
+}
+
+.pending-details p {
+  margin: 0.8rem 0;
+  font-size: 1.1rem;
+}
+
+.pending-details strong {
+  color: var(--text-primary);
+}
+
+/* Red Pill Button — matches student dashboard style */
+.btn.primary,
+a.btn.primary {
+  background: var(--accent-red);
+  color: white;
+  border: none;
+  padding: 1rem 2.4rem;
+  border-radius: var(--radius-pill);
+  font-size: 1.1rem;
+  font-weight: 700;
+  text-decoration: none;
+  display: inline-block;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 12px rgba(239,68,68,0.3);
+}
+
+.btn.primary:hover {
+  background: var(--accent-red-hover);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(220,38,38,0.4);
+}
+
+/* General links */
+a {
+  color: var(--sidebar-blue);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+a:hover {
+  text-decoration: underline;
+  color: var(--sidebar-hover);
 }
